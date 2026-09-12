@@ -1,3 +1,4 @@
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import CategoryCard from "../components/CategoryCard";
@@ -8,6 +9,7 @@ import { products } from "../data/products";
 import { styles } from "./index.styles";
 
 export default function HomeScreen() {
+  const router = useRouter();
   const [searchText, setSearchText] = useState("");
 
   const popularProducts = products.slice(0, 6);
@@ -24,7 +26,20 @@ export default function HomeScreen() {
         <Text style={styles.title}>What are you looking for today?</Text>
       </View>
 
-      <SearchBar value={searchText} onChangeText={setSearchText} />
+      <SearchBar
+        value={searchText}
+        onChangeText={setSearchText}
+        onSubmit={() => {
+          if (searchText.trim().length > 0) {
+            router.navigate({
+              pathname: "/products",
+              params: {
+                search: searchText.trim(),
+              },
+            });
+          }
+        }}
+      />
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Shop by Category</Text>
@@ -38,7 +53,12 @@ export default function HomeScreen() {
             <CategoryCard
               key={category}
               name={category}
-              onPress={() => console.log(category)}
+              onPress={() =>
+                router.navigate({
+                  pathname: "/products",
+                  params: { category },
+                })
+              }
             />
           ))}
         </ScrollView>
