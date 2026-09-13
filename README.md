@@ -1,56 +1,272 @@
-# Welcome to your Expo app 👋
+# Medicine Ordering App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A polished medicine-ordering mobile application built with **React Native, Expo, TypeScript, and Zustand** as an internship MVP.
 
-## Get started
+The application simulates a modern online pharmacy experience where users can browse healthcare products, search for products, add items to a cart, complete a mock checkout, place an order, and view previous orders.
 
-1. Install dependencies
+> **Note:** This is a frontend/MVP project using mock product data. It does not process real payments, prescriptions, pharmacy orders, or medical data.
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+- 🏠 Home screen with search, categories, banner, and popular products
+- 🔎 Product search
+- 🗂️ Category-based product browsing
+- 💊 Product listing with pricing and discounts
+- 📦 Product details screen
+- 🛒 Add products to cart
+- ➕ Increase/decrease product quantity
+- 🗑️ Remove products from cart
+- 💰 Cart price, MRP, discount, and total calculation
+- 🏠 Mock delivery address
+- 💳 Mock payment method selection
+- ✅ Mock order placement
+- 🎉 Order confirmation screen
+- 📋 Previous orders screen
+- 📱 Empty and error states
+- 🔄 Loading/basic UI states
+- 🧪 Manual testing across the complete application flow
 
-   ```bash
-   npx expo start
-   ```
+## Main User Flow
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+Home
+  ↓
+Search / Browse Products
+  ↓
+Product Details
+  ↓
+Add to Cart
+  ↓
+Cart
+  ↓
+Checkout
+  ↓
+Place Order
+  ↓
+Order Confirmation
+  ↓
+Orders
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Tech Stack
 
-### Other setup steps
+- **React Native**
+- **Expo**
+- **Expo Router**
+- **TypeScript**
+- **Zustand**
+- **React Native StyleSheet**
+- **@expo/vector-icons**
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+## Project Structure
 
-## Learn more
+```text
+src/
+├── app/
+│   ├── _layout.tsx
+│   ├── index.tsx
+│   ├── products.tsx
+│   ├── cart.tsx
+│   ├── checkout.tsx
+│   ├── order-confirmation.tsx
+│   ├── orders.tsx
+│   └── product/
+│       └── [id].tsx
+│
+├── components/
+│   ├── ProductCard.tsx
+│   ├── SearchBar.tsx
+│   ├── CategoryCard.tsx
+│   ├── PrimaryButton.tsx
+│   ├── EmptyState.tsx
+│   └── ...
+│
+├── data/
+│   ├── products.ts
+│   └── categories.ts
+│
+├── store/
+│   ├── cartStore.ts
+│   └── orderStore.ts
+│
+├── types/
+│   └── product.ts
+│
+├── theme/
+│   ├── colors.ts
+│   ├── dimensions.ts
+│   ├── spacing.ts
+│   └── typography.ts
+│
+└── utils/
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+Each reusable component follows a separated structure where the `.tsx` file contains the component logic/UI and the corresponding `.styles.ts` file contains its styles.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## State Management
 
-## Join the community
+The application uses **Zustand** for local state management.
 
-Join our community of developers creating universal apps.
+### Cart Store
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The cart store handles:
+
+- Adding products
+- Removing products
+- Increasing quantity
+- Decreasing quantity
+- Clearing the cart
+- Calculating subtotal
+- Calculating MRP
+- Calculating discount
+- Calculating total
+- Calculating item count
+
+### Order Store
+
+The order store handles:
+
+- Creating orders
+- Storing order items
+- Order status
+- Payment method
+- Delivery address
+- Order creation time
+
+## Product Data
+
+The MVP uses mock/local product data containing healthcare and personal-care products such as:
+
+- Pain relief products
+- Vitamins
+- Cold and cough products
+- Digestive care
+- Personal care
+- Healthcare devices
+- Skin care
+- Baby care
+- Nutrition
+- Wellness products
+
+No external pharmacy or medical-data API is required.
+
+## Testing
+
+The application was manually tested across the major user flows.
+
+### Testing Coverage
+
+- Application launch
+- Navigation
+- Home screen
+- Search
+- Product listing
+- Product details
+- Add to cart
+- Cart quantity management
+- Cart removal
+- Checkout
+- Payment method selection
+- Order placement
+- Order confirmation
+- Orders history
+- Empty states
+- Invalid product state
+- Android back navigation
+- UI/usability checks
+- Complete end-to-end flow
+
+**Final end-to-end test: PASS ✅**
+
+## Running the Project
+
+### Prerequisites
+
+Make sure you have:
+
+- Node.js
+- npm
+- Expo
+- Android Studio with an Android emulator, or a compatible mobile device
+
+### Installation
+
+Clone the repository and install dependencies:
+
+```bash
+npm install
+```
+
+Start the Expo development server:
+
+```bash
+npx expo start
+```
+
+For Android:
+
+```bash
+npx expo start --android
+```
+
+## TypeScript Check
+
+Run:
+
+```bash
+npx tsc --noEmit
+```
+
+The project should complete the TypeScript check without errors.
+
+## Limitations
+
+This project is intentionally an internship MVP.
+
+It does **not** include:
+
+- Real payment processing
+- Real pharmacy integration
+- Prescription upload/verification
+- Real user authentication
+- Real backend/database
+- Real delivery tracking
+- Real medical records
+- Real healthcare provider integration
+
+All products, addresses, payments, and orders are mock/local data.
+
+## AI Assistance
+
+AI tools were used during development for guidance, debugging, code suggestions, architecture discussions, and documentation assistance.
+
+The implementation was reviewed and tested manually, and the developer understands the application structure and functionality.
+
+## Future Improvements
+
+Possible future improvements include:
+
+- Backend/API integration
+- User authentication
+- Persistent database storage
+- Real product images
+- Prescription upload
+- Real payment gateway integration
+- Address management
+- Order tracking
+- Push notifications
+- Product reviews
+- Wishlist functionality
+- Advanced filtering and sorting
+- Automated unit and integration tests
+
+## Project Status
+
+**Status: Completed Internship MVP ✅**
+
+The complete core shopping flow has been implemented and manually tested:
+
+```text
+Browse → Search → Product → Cart → Checkout
+→ Place Order → Confirmation → Orders
+```
