@@ -1,11 +1,13 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
+import { ScreenSkeleton } from "../components/Skeleton";
 import { categories } from "../data/categories";
 import { products } from "../data/products";
+import { useInitialLoading } from "../hooks/useInitialLoading";
 import { useCartStore } from "../store/cartStore";
 import { styles } from "./index.styles";
 
@@ -14,8 +16,63 @@ export default function HomeScreen() {
   const itemCount = useCartStore((state) => state.getItemCount());
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
+  const isLoading = useInitialLoading();
 
-  const popularProducts = products.slice(0, 6);
+  const popularProducts = useMemo(() => products.slice(0, 6), []);
+  const searchSuggestions = useMemo(() => {
+    const normalizedQuery = searchText.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      return [];
+    }
+
+    return products
+      .filter((product) => product.name.toLowerCase().includes(normalizedQuery))
+      .map((product) => product.name)
+      .slice(0, 5);
+  }, [searchText]);
+
+  const submitSearch = useCallback(
+    (query = searchText) => {
+      if (query.trim().length > 0) {
+        router.navigate({
+          pathname: "/products",
+          params: {
+            search: query.trim(),
+          },
+        });
+      }
+    },
+    [router, searchText],
+  );
+
+  const handleProductPress = useCallback(
+    (productId: string) => {
+      router.navigate({
+        pathname: "/product/[id]",
+        params: { id: productId },
+      });
+    },
+    [router],
+  );
+
+  const handleCategoryPress = useCallback(
+    (category: string) => {
+      router.navigate({
+        pathname: "/products",
+        params: { category },
+      });
+    },
+    [router],
+  );
+
+  const handleAllProductsPress = useCallback(() => {
+    router.navigate("/products");
+  }, [router]);
+
+  if (isLoading) {
+    return <ScreenSkeleton rows={3} />;
+  }
 
   return (
     <ScrollView
@@ -44,20 +101,26 @@ export default function HomeScreen() {
       <SearchBar
         value={searchText}
         onChangeText={setSearchText}
-        onSubmit={() => {
-          if (searchText.trim().length > 0) {
-            router.navigate({
-              pathname: "/products",
-              params: {
-                search: searchText.trim(),
-              },
-            });
-          }
+        onSubmit={submitSearch}
+        suggestions={searchSuggestions}
+        onSelectSuggestion={(suggestion) => {
+          setSearchText(suggestion);
+          submitSearch(suggestion);
         }}
       />
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Shop by Category</Text>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>Shop by Category</Text>
+
+          <Pressable
+            onPress={handleAllProductsPress}
+            accessibilityRole="button"
+            accessibilityLabel="View all products"
+          >
+            <Text style={styles.viewAllText}>All products</Text>
+          </Pressable>
+        </View>
 
         <ScrollView
           horizontal
@@ -68,12 +131,7 @@ export default function HomeScreen() {
             <CategoryCard
               key={category}
               name={category}
-              onPress={() =>
-                router.navigate({
-                  pathname: "/products",
-                  params: { category },
-                })
-              }
+              onPress={() => handleCategoryPress(category)}
             />
           ))}
         </ScrollView>
@@ -94,12 +152,7 @@ export default function HomeScreen() {
           <ProductCard
             key={product.id}
             product={product}
-            onPress={() =>
-              router.navigate({
-                pathname: "/product/[id]",
-                params: { id: product.id },
-              })
-            }
+            onPress={() => handleProductPress(product.id)}
             onAddToCart={() => addToCart(product)}
           />
         ))}

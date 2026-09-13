@@ -116,8 +116,12 @@ export const useCartStore = create<CartStore>()((set, get) => ({
     return getTotalMrp() - getSubtotal();
   },
 
-  // Final payable amount
-  getTotal: () => get().getSubtotal(),
+  // Final payable amount after applying the cart discount
+  getTotal: () => {
+    const { getSubtotal, getDiscount } = get();
+
+    return getSubtotal() - getDiscount();
+  },
 
   // Total number of products
   getItemCount: () =>

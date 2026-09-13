@@ -5,7 +5,7 @@ export interface Order {
   id: string;
   items: CartItem[];
   total: number;
-  status: "Placed" | "Processing" | "Shipped" | "Delivered";
+  status: "Placed" | "Processing" | "Shipped" | "Delivered" | "Cancelled";
   paymentMethod: "Cash on Delivery" | "Online Payment";
   address: string;
   createdAt: string;
@@ -15,9 +15,10 @@ interface OrderStore {
   orders: Order[];
 
   addOrder: (order: Order) => string;
+  cancelOrder: (orderId: string) => boolean;
 }
 
-export const useOrderStore = create<OrderStore>()((set) => ({
+export const useOrderStore = create<OrderStore>()((set, get) => ({
   orders: [],
 
   addOrder: (order) => {
@@ -26,5 +27,25 @@ export const useOrderStore = create<OrderStore>()((set) => ({
     }));
 
     return order.id;
+  },
+
+  cancelOrder: (orderId) => {
+    const order = get().orders.find(
+      (currentOrder) => currentOrder.id === orderId,
+    );
+
+    if (!order || order.status !== "Placed") {
+      return false;
+    }
+
+    set((state) => ({
+      orders: state.orders.map((currentOrder) =>
+        currentOrder.id === orderId
+          ? { ...currentOrder, status: "Cancelled" }
+          : currentOrder,
+      ),
+    }));
+
+    return true;
   },
 }));

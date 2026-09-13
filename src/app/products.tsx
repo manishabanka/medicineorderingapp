@@ -1,16 +1,19 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import EmptyState from "../components/EmptyState";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
+import { ScreenSkeleton } from "../components/Skeleton";
 import { products } from "../data/products";
+import { useInitialLoading } from "../hooks/useInitialLoading";
 import { useCartStore } from "../store/cartStore";
 import { styles } from "./products.styles";
 
 export default function ProductsScreen() {
   const addToCart = useCartStore((state) => state.addToCart);
   const router = useRouter();
+  const isLoading = useInitialLoading();
   const { category, search } = useLocalSearchParams<{
     category?: string;
     search?: string;
@@ -25,15 +28,53 @@ export default function ProductsScreen() {
 
   const normalizedQuery = searchText.trim().toLowerCase();
 
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch =
-      normalizedQuery.length === 0 ||
-      product.name.toLowerCase().includes(normalizedQuery);
+  const filteredProducts = useMemo(
+    () =>
+      products.filter((product) => {
+        const matchesSearch =
+          normalizedQuery.length === 0 ||
+          product.name.toLowerCase().includes(normalizedQuery);
 
-    const matchesCategory = !category || product.category === category;
+        const matchesCategory = !category || product.category === category;
 
-    return matchesSearch && matchesCategory;
-  });
+        return matchesSearch && matchesCategory;
+      }),
+    [category, normalizedQuery],
+  );
+
+  const handleSubmit = useCallback(() => {
+    const trimmedQuery = searchText.trim();
+
+    router.setParams({
+      category: category ?? undefined,
+      search: trimmedQuery || undefined,
+    });
+  }, [category, router, searchText]);
+
+  const handleProductPress = useCallback(
+    (productId: string) => {
+      router.navigate({
+        pathname: "/product/[id]",
+        params: { id: productId },
+      });
+    },
+    [router],
+  );
+
+  const renderProduct = useCallback(
+    ({ item }: { item: (typeof products)[number] }) => (
+      <ProductCard
+        product={item}
+        onPress={() => handleProductPress(item.id)}
+        onAddToCart={() => addToCart(item)}
+      />
+    ),
+    [addToCart, handleProductPress],
+  );
+
+  if (isLoading) {
+    return <ScreenSkeleton />;
+  }
 
   return (
     <View style={styles.screen}>
@@ -42,14 +83,7 @@ export default function ProductsScreen() {
       <SearchBar
         value={searchText}
         onChangeText={setSearchText}
-        onSubmit={() => {
-          const trimmedQuery = searchText.trim();
-
-          router.setParams({
-            category: category ?? undefined,
-            search: trimmedQuery || undefined,
-          });
-        }}
+        onSubmit={handleSubmit}
       />
 
       <Text>
@@ -65,22 +99,12 @@ export default function ProductsScreen() {
         <FlatList
           data={filteredProducts}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <ProductCard
-              product={item}
-              onPress={() =>
-                router.navigate({
-                  pathname: "/product/[id]",
-                  params: { id: item.id },
-                })
-              }
-              onAddToCart={() => {
-                addToCart(item);
-              }}
-            />
-          )}
+          renderItem={renderProduct}
           contentContainerStyle={styles.list}
           showsVerticalScrollIndicator={false}
+          initialNumToRender={6}
+          maxToRenderPerBatch={6}
+          windowSize={7}
         />
       )}
     </View>

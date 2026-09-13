@@ -1,10 +1,29 @@
-import { FlatList, Text, View } from "react-native";
+import { Alert, FlatList, Pressable, Text, View } from "react-native";
 
+import { ScreenSkeleton } from "../components/Skeleton";
+import { useInitialLoading } from "../hooks/useInitialLoading";
 import { useOrderStore } from "../store/orderStore";
 import { styles } from "./orders.styles";
 
 export default function OrdersScreen() {
+  const isLoading = useInitialLoading();
   const orders = useOrderStore((state) => state.orders);
+  const cancelOrder = useOrderStore((state) => state.cancelOrder);
+
+  const handleCancelOrder = (orderId: string) => {
+    Alert.alert("Cancel order?", "This action cannot be undone.", [
+      { text: "Keep order", style: "cancel" },
+      {
+        text: "Cancel order",
+        style: "destructive",
+        onPress: () => cancelOrder(orderId),
+      },
+    ]);
+  };
+
+  if (isLoading) {
+    return <ScreenSkeleton rows={3} showSearch={false} />;
+  }
 
   if (orders.length === 0) {
     return (
@@ -27,6 +46,9 @@ export default function OrdersScreen() {
         keyExtractor={(order) => order.id}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
+        initialNumToRender={5}
+        maxToRenderPerBatch={5}
+        windowSize={7}
         renderItem={({ item }) => (
           <View style={styles.orderCard}>
             <View style={styles.orderHeader}>
@@ -36,8 +58,22 @@ export default function OrdersScreen() {
                 <Text style={styles.orderId}>{item.id}</Text>
               </View>
 
-              <View style={styles.statusBadge}>
-                <Text style={styles.statusText}>{item.status}</Text>
+              <View
+                style={
+                  item.status === "Cancelled"
+                    ? [styles.statusBadge, styles.cancelledBadge]
+                    : styles.statusBadge
+                }
+              >
+                <Text
+                  style={
+                    item.status === "Cancelled"
+                      ? [styles.statusText, styles.cancelledText]
+                      : styles.statusText
+                  }
+                >
+                  {item.status}
+                </Text>
               </View>
             </View>
 
@@ -62,6 +98,17 @@ export default function OrdersScreen() {
                 </Text>
               </View>
             ))}
+
+            {item.status === "Placed" && (
+              <View style={styles.actionRow}>
+                <Pressable
+                  style={styles.cancelButton}
+                  onPress={() => handleCancelOrder(item.id)}
+                >
+                  <Text style={styles.cancelButtonText}>Cancel order</Text>
+                </Pressable>
+              </View>
+            )}
 
             <View style={styles.divider} />
 

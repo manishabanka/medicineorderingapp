@@ -15,6 +15,11 @@ export const styles = StyleSheet.create({
     padding: spacing.md,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: colors.primaryDark,
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 1,
   },
 
   name: {

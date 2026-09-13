@@ -1,10 +1,13 @@
 import { router, useLocalSearchParams } from "expo-router";
 import { Pressable, Text, View } from "react-native";
 
+import { ScreenSkeleton } from "../components/Skeleton";
+import { useInitialLoading } from "../hooks/useInitialLoading";
 import { useOrderStore } from "../store/orderStore";
 import { styles } from "./order-confirmation.styles";
 
 export default function OrderConfirmationScreen() {
+  const isLoading = useInitialLoading();
   const { orderId } = useLocalSearchParams<{
     orderId?: string;
   }>();
@@ -12,6 +15,10 @@ export default function OrderConfirmationScreen() {
   const orders = useOrderStore((state) => state.orders);
 
   const order = orders.find((item) => item.id === orderId);
+
+  if (isLoading) {
+    return <ScreenSkeleton rows={2} showSearch={false} />;
+  }
 
   if (!order) {
     return (

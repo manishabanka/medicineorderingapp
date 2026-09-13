@@ -1,15 +1,23 @@
-import { useLocalSearchParams } from "expo-router";
-import { Image, ScrollView, Text, View } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import PrimaryButton from "../../components/PrimaryButton";
+import { ScreenSkeleton } from "../../components/Skeleton";
 import { products } from "../../data/products";
+import { useInitialLoading } from "../../hooks/useInitialLoading";
 import { useCartStore } from "../../store/cartStore";
 import { styles } from "./[id].styles";
 
 export default function ProductDetailsScreen() {
+  const isLoading = useInitialLoading();
+  const router = useRouter();
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const product = products.find((item) => item.id === id);
   const addToCart = useCartStore((state) => state.addToCart);
+
+  if (isLoading) {
+    return <ScreenSkeleton rows={2} showSearch={false} />;
+  }
 
   if (!product) {
     return (
@@ -25,7 +33,11 @@ export default function ProductDetailsScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <Image
+        source={{ uri: product.image }}
+        style={styles.image}
+        resizeMode="contain"
+      />
 
       <Text style={styles.title}>{product.name}</Text>
 
@@ -50,9 +62,22 @@ export default function ProductDetailsScreen() {
           title="Add to Cart"
           onPress={() => {
             addToCart(product);
-            alert(`${product.name} added to cart`);
+            Alert.alert(
+              "Added to cart",
+              `${product.name} was added to your cart.`,
+            );
           }}
         />
+
+        <View style={styles.placeOrderButton}>
+          <PrimaryButton
+            title="Place Order"
+            onPress={() => {
+              addToCart(product);
+              router.replace("/checkout");
+            }}
+          />
+        </View>
       </View>
     </ScrollView>
   );

@@ -2,6 +2,8 @@ import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
+import { ScreenSkeleton } from "../components/Skeleton";
+import { useInitialLoading } from "../hooks/useInitialLoading";
 import { useCartStore } from "../store/cartStore";
 import { useOrderStore } from "../store/orderStore";
 import { styles } from "./checkout.styles";
@@ -9,6 +11,7 @@ import { styles } from "./checkout.styles";
 type PaymentMethod = "Cash on Delivery" | "Online Payment";
 
 export default function CheckoutScreen() {
+  const isLoading = useInitialLoading();
   const router = useRouter();
 
   const items = useCartStore((state) => state.items);
@@ -54,6 +57,10 @@ export default function CheckoutScreen() {
       },
     });
   };
+
+  if (isLoading) {
+    return <ScreenSkeleton rows={3} showSearch={false} />;
+  }
 
   if (items.length === 0) {
     return (

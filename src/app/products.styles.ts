@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
     color: colors.textPrimary,
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
+    letterSpacing: 0.2,
   },
 
   list: {

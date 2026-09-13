@@ -1,23 +1,27 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../theme/colors";
+import { dimensions } from "../theme/dimensions";
+import { spacing } from "../theme/spacing";
+import { typography } from "../theme/typography";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7F9",
+    backgroundColor: colors.background,
   },
 
   content: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 24,
+    paddingHorizontal: spacing.xxl,
   },
 
   successCircle: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: "#DCFCE7",
+    backgroundColor: "#DDF3F1",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 24,
@@ -26,13 +30,13 @@ export const styles = StyleSheet.create({
   successIcon: {
     fontSize: 42,
     fontWeight: "700",
-    color: "#16A34A",
+    color: colors.primary,
   },
 
   title: {
-    fontSize: 24,
+    fontSize: typography.heading,
     fontWeight: "700",
-    color: "#111827",
+    color: colors.textPrimary,
     textAlign: "center",
   },
 
@@ -40,89 +44,91 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 14,
     lineHeight: 21,
-    color: "#6B7280",
+    color: colors.textSecondary,
     textAlign: "center",
   },
 
   orderCard: {
     width: "100%",
     marginTop: 24,
-    padding: 16,
-    borderRadius: 16,
-    backgroundColor: "#FFFFFF",
+    padding: spacing.lg,
+    borderRadius: dimensions.cardRadius,
+    backgroundColor: colors.white,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
 
   orderLabel: {
     fontSize: 12,
-    color: "#6B7280",
+    color: colors.textSecondary,
   },
 
   orderStatus: {
     marginTop: 4,
     fontSize: 16,
     fontWeight: "700",
-    color: "#16A34A",
+    color: colors.primary,
   },
 
   divider: {
     height: 1,
-    backgroundColor: "#E5E7EB",
+    backgroundColor: colors.border,
     marginVertical: 16,
   },
 
   deliveryTitle: {
     fontSize: 13,
-    color: "#6B7280",
+    color: colors.textSecondary,
   },
 
   deliveryText: {
     marginTop: 4,
     fontSize: 15,
     fontWeight: "600",
-    color: "#111827",
+    color: colors.textPrimary,
   },
 
   paymentText: {
     marginTop: 12,
     fontSize: 13,
-    color: "#6B7280",
+    color: colors.textSecondary,
   },
 
   bottomContainer: {
-    padding: 16,
-    backgroundColor: "#FFFFFF",
+    padding: spacing.lg,
+    backgroundColor: colors.white,
     borderTopWidth: 1,
-    borderTopColor: "#E5E7EB",
+    borderTopColor: colors.border,
   },
 
   primaryButton: {
-    height: 48,
-    borderRadius: 10,
+    height: dimensions.buttonHeight,
+    borderRadius: dimensions.buttonRadius,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#16A34A",
+    backgroundColor: colors.primary,
   },
 
   primaryButtonText: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#FFFFFF",
+    color: colors.white,
   },
 
   secondaryButton: {
-    height: 48,
-    marginTop: 10,
-    borderRadius: 10,
+    height: dimensions.buttonHeight,
+    marginTop: spacing.sm,
+    borderRadius: dimensions.buttonRadius,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: "#16A34A",
-    backgroundColor: "#FFFFFF",
+    borderColor: colors.primary,
+    backgroundColor: colors.white,
   },
 
   secondaryButtonText: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#16A34A",
+    color: colors.primary,
   },
 });

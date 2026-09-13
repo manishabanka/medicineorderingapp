@@ -1,13 +1,17 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../theme/colors";
+import { dimensions } from "../theme/dimensions";
+import { spacing } from "../theme/spacing";
+import { typography } from "../theme/typography";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7F9",
+    backgroundColor: colors.background,
   },
 
   listContent: {
-    padding: 16,
+    padding: spacing.lg,
     paddingBottom: 120,
   },
 
@@ -16,15 +20,15 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 24,
+    fontSize: typography.heading,
     fontWeight: "700",
-    color: "#111827",
+    color: colors.textPrimary,
   },
 
   itemCount: {
     marginTop: 4,
     fontSize: 14,
-    color: "#6B7280",
+    color: colors.textSecondary,
   },
 
   checkoutContainer: {
@@ -37,21 +41,21 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 14,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.white,
     borderTopWidth: 1,
-    borderTopColor: "#E5E7EB",
+    borderTopColor: colors.border,
   },
 
   totalLabel: {
     fontSize: 12,
-    color: "#6B7280",
+    color: colors.textSecondary,
   },
 
   totalAmount: {
     marginTop: 2,
     fontSize: 20,
     fontWeight: "700",
-    color: "#111827",
+    color: colors.textPrimary,
   },
 
   checkoutButton: {
@@ -60,7 +64,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#16A34A",
+    backgroundColor: colors.primary,
   },
 
   checkoutButtonText: {
@@ -74,7 +78,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 32,
-    backgroundColor: "#F5F7F9",
+    backgroundColor: colors.background,
   },
 
   emptyIcon: {
@@ -85,7 +89,7 @@ export const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 22,
     fontWeight: "700",
-    color: "#111827",
+    color: colors.textPrimary,
     textAlign: "center",
   },
 
@@ -93,7 +97,7 @@ export const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     lineHeight: 21,
-    color: "#6B7280",
+    color: colors.textSecondary,
     textAlign: "center",
   },
 
@@ -104,12 +108,12 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#16A34A",
+    backgroundColor: colors.primary,
   },
 
   shopButtonText: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#FFFFFF",
+    color: colors.white,
   },
 });

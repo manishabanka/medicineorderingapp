@@ -1,9 +1,13 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../theme/colors";
+import { dimensions } from "../theme/dimensions";
+import { spacing } from "../theme/spacing";
+import { typography } from "../theme/typography";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7F9",
+    backgroundColor: colors.background,
   },
 
   content: {
@@ -19,10 +23,12 @@ export const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+    backgroundColor: colors.white,
+    borderRadius: dimensions.cardRadius,
+    padding: spacing.lg,
+    marginBottom: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
 
   cardTitle: {
@@ -214,7 +220,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#16A34A",
+    backgroundColor: colors.primary,
   },
 
   placeOrderText: {
@@ -244,7 +250,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#16A34A",
+    backgroundColor: colors.primary,
   },
 
   shopButtonText: {

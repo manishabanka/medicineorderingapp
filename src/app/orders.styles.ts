@@ -1,9 +1,13 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../theme/colors";
+import { dimensions } from "../theme/dimensions";
+import { spacing } from "../theme/spacing";
+import { typography } from "../theme/typography";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7F9",
+    backgroundColor: colors.background,
   },
 
   listContent: {
@@ -11,10 +15,12 @@ export const styles = StyleSheet.create({
   },
 
   orderCard: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 16,
-    padding: 16,
-    marginBottom: 12,
+    backgroundColor: colors.white,
+    borderRadius: dimensions.cardRadius,
+    padding: spacing.lg,
+    marginBottom: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
 
   orderHeader: {
@@ -48,6 +54,14 @@ export const styles = StyleSheet.create({
     color: "#16A34A",
   },
 
+  cancelledBadge: {
+    backgroundColor: "#FEE2E2",
+  },
+
+  cancelledText: {
+    color: "#DC2626",
+  },
+
   divider: {
     height: 1,
     backgroundColor: "#E5E7EB",
@@ -79,6 +93,25 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: "600",
     color: "#6B7280",
+  },
+
+  actionRow: {
+    alignItems: "flex-end",
+    marginTop: 4,
+  },
+
+  cancelButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: dimensions.buttonRadius,
+  },
+
+  cancelButtonText: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: colors.error,
   },
 
   bottomRow: {

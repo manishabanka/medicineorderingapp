@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
 
   container: {
     padding: spacing.lg,
+    paddingTop: spacing.xxl,
     paddingBottom: spacing.xxxl,
   },
 
@@ -28,16 +29,19 @@ export const styles = StyleSheet.create({
   },
 
   greeting: {
-    fontSize: typography.body,
-    color: colors.textSecondary,
+    fontSize: typography.caption,
+    fontWeight: "700",
+    letterSpacing: 1,
+    textTransform: "uppercase",
+    color: colors.primary,
     marginBottom: spacing.xs,
   },
 
   title: {
-    fontSize: typography.heading,
+    fontSize: 28,
     fontWeight: "700",
     color: colors.textPrimary,
-    lineHeight: 30,
+    lineHeight: 34,
   },
 
   cartButton: {
@@ -50,10 +54,10 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: colors.border,
-    shadowColor: "#000",
+    shadowColor: colors.primaryDark,
     shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 3 },
     elevation: 2,
   },
 
@@ -86,7 +90,19 @@ export const styles = StyleSheet.create({
     fontSize: typography.title,
     fontWeight: "700",
     color: colors.textPrimary,
+  },
+
+  sectionHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: spacing.md,
+  },
+
+  viewAllText: {
+    fontSize: typography.body,
+    fontWeight: "700",
+    color: colors.primary,
   },
 
   categoryList: {
@@ -96,9 +112,14 @@ export const styles = StyleSheet.create({
 
   banner: {
     marginTop: spacing.xxl,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primaryDark,
     borderRadius: dimensions.cardRadius,
     padding: spacing.xxl,
+    shadowColor: colors.primaryDark,
+    shadowOpacity: 0.2,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 4,
   },
 
   bannerTitle: {

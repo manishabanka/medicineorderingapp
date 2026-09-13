@@ -10,11 +10,19 @@ export const styles = StyleSheet.create({
     borderRadius: dimensions.cardRadius,
     overflow: "hidden",
     marginBottom: spacing.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    shadowColor: colors.primaryDark,
+    shadowOpacity: 0.08,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 2,
   },
 
   image: {
     width: "100%",
     height: 160,
+    backgroundColor: colors.surfaceMuted,
   },
 
   content: {
@@ -68,6 +76,11 @@ export const styles = StyleSheet.create({
     height: dimensions.buttonHeight,
     borderRadius: dimensions.buttonRadius,
     backgroundColor: colors.primary,
+    shadowColor: colors.primaryDark,
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 3,
     alignItems: "center",
     justifyContent: "center",
   },

@@ -14,6 +14,10 @@ export const styles = StyleSheet.create({
     marginTop: spacing.xxl,
   },
 
+  placeOrderButton: {
+    marginTop: spacing.md,
+  },
+
   container: {
     padding: spacing.lg,
     paddingBottom: spacing.xxxl,

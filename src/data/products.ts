@@ -8,7 +8,8 @@ export const products: Product[] = [
     price: 25,
     mrp: 30,
     discount: 17,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://5.imimg.com/data5/SELLER/Default/2022/8/CW/BB/DS/129887935/paracetamol-tablets-500-mg-1000x1000.jpeg",
     description:
       "Paracetamol tablets commonly used for temporary relief from pain and fever.",
     rating: 4.5,
@@ -21,7 +22,8 @@ export const products: Product[] = [
     price: 120,
     mrp: 150,
     discount: 20,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://www.kevaind.org/image/product/Vitamin%20C%20Tablet_021120062021.JPG",
     description: "Vitamin C supplement for daily nutritional support.",
     rating: 4.4,
     packSize: "20 tablets",
@@ -33,7 +35,8 @@ export const products: Product[] = [
     price: 199,
     mrp: 250,
     discount: 20,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://www.emedbucket.com/emedpro_img/uploads/product/main/SUPRAMEDS/1649181119_133375_0.jpg",
     description:
       "Daily multivitamin supplement containing essential vitamins and minerals.",
     rating: 4.3,
@@ -46,7 +49,8 @@ export const products: Product[] = [
     price: 65,
     mrp: 80,
     discount: 19,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://i5.walmartimages.com/seo/Equate-Extra-Strength-Antacid-Upset-Stomach-Chewable-Tablets-over-the-Counter-160-mg-100-Count_253c8c61-4f5a-4c2f-8082-e788b965fe10_1.e18881646f4dfe2d540ead9a92f3e869.jpeg",
     description: "Tablets for temporary relief from acidity and heartburn.",
     rating: 4.2,
     packSize: "15 tablets",
@@ -58,7 +62,8 @@ export const products: Product[] = [
     price: 110,
     mrp: 135,
     discount: 19,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://images.ctfassets.net/sabbecbbwaz3/SUANq01Uei9mbWy71UDmI/6e3f899ab6164b8209ff21a67d8dfba1/Vicks_AU_Cough_2in1_Syrup_front.jpg",
     description:
       "Cough syrup formulated for temporary relief from cough symptoms.",
     rating: 4.1,
@@ -71,7 +76,8 @@ export const products: Product[] = [
     price: 199,
     mrp: 299,
     discount: 33,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://www.medisave.co.uk/cdn/shop/collections/electronic-modern-thermometer-isolated-2026-01-08-05-18-15-utc_1.jpg?v=1770641786",
     description:
       "Digital thermometer for quick and convenient temperature measurement.",
     rating: 4.6,
@@ -84,7 +90,7 @@ export const products: Product[] = [
     price: 75,
     mrp: 100,
     discount: 25,
-    image: "https://via.placeholder.com/300",
+    image: "https://m.media-amazon.com/images/I/71n+rf0HwhL.jpg",
     description: "Hand sanitizer for convenient hand hygiene.",
     rating: 4.4,
     packSize: "100 ml",
@@ -96,7 +102,7 @@ export const products: Product[] = [
     price: 90,
     mrp: 120,
     discount: 25,
-    image: "https://via.placeholder.com/300",
+    image: "https://m.media-amazon.com/images/I/71KY0nk2c5L._AC_SL1500_.jpg",
     description: "Disposable protective face masks for everyday use.",
     rating: 4.2,
     packSize: "10 masks",
@@ -108,7 +114,8 @@ export const products: Product[] = [
     price: 180,
     mrp: 220,
     discount: 18,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://www.bronsonvitamins.com/cdn/shop/products/186-0420-bottles-with-product.jpg?v=1690814305",
     description: "Calcium supplement for daily nutritional support.",
     rating: 4.3,
     packSize: "30 tablets",
@@ -120,7 +127,7 @@ export const products: Product[] = [
     price: 25,
     mrp: 30,
     discount: 17,
-    image: "https://via.placeholder.com/300",
+    image: "https://blog.medkart.in/wp-content/uploads/2024/06/ors.png",
     description:
       "Oral rehydration powder for replacement of fluids and electrolytes.",
     rating: 4.7,
@@ -133,7 +140,7 @@ export const products: Product[] = [
     price: 95,
     mrp: 120,
     discount: 21,
-    image: "https://via.placeholder.com/300",
+    image: "https://m.media-amazon.com/images/I/71O1hWdxXPL._AC_.jpg",
     description:
       "Topical gel for temporary relief of minor muscle and joint discomfort.",
     rating: 4.2,
@@ -146,7 +153,8 @@ export const products: Product[] = [
     price: 160,
     mrp: 200,
     discount: 20,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://i5.walmartimages.com/seo/Cetaphil-Moisturizing-Lotion-for-Normal-to-Dry-Skin-Hydrating-Fragrance-Free-8-fl-oz_7ca67493-c70e-4ea7-9012-8b20f3187056.51b296bb605657253438f6de8f53d02c.jpeg",
     description: "Daily moisturizing lotion for soft and hydrated skin.",
     rating: 4.5,
     packSize: "200 ml",
@@ -158,7 +166,7 @@ export const products: Product[] = [
     price: 140,
     mrp: 180,
     discount: 22,
-    image: "https://via.placeholder.com/300",
+    image: "https://pdlpk.com/wp-content/uploads/2023/02/aloe-vera-gel.jpg",
     description: "Aloe vera gel for everyday skin care.",
     rating: 4.4,
     packSize: "100 g",
@@ -170,7 +178,8 @@ export const products: Product[] = [
     price: 499,
     mrp: 599,
     discount: 17,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://i5.walmartimages.com/seo/Pampers-Swaddlers-Newborn-Diapers-Size-1-32-Count_75787410-6a19-4bca-abd4-55833adaa3d9.f9e87f55eea7609bb47655bcf17bb758.jpeg",
     description: "Comfortable disposable diapers designed for babies.",
     rating: 4.5,
     packSize: "20 diapers",
@@ -182,7 +191,8 @@ export const products: Product[] = [
     price: 149,
     mrp: 180,
     discount: 17,
-    image: "https://via.placeholder.com/300",
+    image:
+      "https://i5.walmartimages.com/asr/b7a1bcd8-fad8-4743-82fc-ebbd92c7f173.8fbe31ecc0ae1516ca83af15131720f0.jpeg",
     description: "Gentle cleansing wipes for babies.",
     rating: 4.4,
     packSize: "72 wipes",
@@ -194,7 +204,7 @@ export const products: Product[] = [
     price: 899,
     mrp: 999,
     discount: 10,
-    image: "https://via.placeholder.com/300",
+    image: "https://m.media-amazon.com/images/I/71etu0IzfRL._AC_.jpg",
     description: "Protein supplement for daily nutritional needs.",
     rating: 4.3,
     packSize: "500 g",
@@ -206,7 +216,7 @@ export const products: Product[] = [
     price: 1299,
     mrp: 1599,
     discount: 19,
-    image: "https://via.placeholder.com/300",
+    image: "https://m.media-amazon.com/images/I/71Ct2TkRx3L._AC_SL1500_.jpg",
     description:
       "Digital blood pressure monitor for convenient home measurements.",
     rating: 4.6,
@@ -219,7 +229,7 @@ export const products: Product[] = [
     price: 499,
     mrp: 599,
     discount: 17,
-    image: "https://via.placeholder.com/300",
+    image: "https://m.media-amazon.com/images/I/71F+s1CLKXL._AC_.jpg",
     description:
       "Test strips designed for compatible blood glucose monitoring devices.",
     rating: 4.5,

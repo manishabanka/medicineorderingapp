@@ -1,13 +1,17 @@
 import { router } from "expo-router";
+import { useMemo } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
 
 import { CartItem } from "../components/CartItem";
 import { PriceSummary } from "../components/PriceSummary";
+import { ScreenSkeleton } from "../components/Skeleton";
+import { useInitialLoading } from "../hooks/useInitialLoading";
 import { useCartStore } from "../store/cartStore";
 
 import { styles } from "./cart.styles";
 
 export default function CartScreen() {
+  const isLoading = useInitialLoading();
   const items = useCartStore((state) => state.items);
 
   const increaseQuantity = useCartStore((state) => state.increaseQuantity);
@@ -16,18 +20,31 @@ export default function CartScreen() {
 
   const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-  const getSubtotal = useCartStore((state) => state.getSubtotal);
+  const { subtotal, discount, total, itemCount } = useMemo(
+    () => {
+      const subtotal = items.reduce(
+        (sum, item) => sum + item.product.price * item.quantity,
+        0,
+      );
+      const totalMrp = items.reduce(
+        (sum, item) => sum + item.product.mrp * item.quantity,
+        0,
+      );
+      const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
-  const getDiscount = useCartStore((state) => state.getDiscount);
+      return {
+        subtotal,
+        discount: totalMrp - subtotal,
+        total: subtotal - (totalMrp - subtotal),
+        itemCount,
+      };
+    },
+    [items],
+  );
 
-  const getTotal = useCartStore((state) => state.getTotal);
-
-  const getItemCount = useCartStore((state) => state.getItemCount);
-
-  const subtotal = getSubtotal();
-  const discount = getDiscount();
-  const total = getTotal();
-  const itemCount = getItemCount();
+  if (isLoading) {
+    return <ScreenSkeleton rows={3} showSearch={false} />;
+  }
 
   if (items.length === 0) {
     return (
@@ -57,6 +74,9 @@ export default function CartScreen() {
         keyExtractor={(item) => item.product.id}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
+        initialNumToRender={6}
+        maxToRenderPerBatch={6}
+        windowSize={7}
         renderItem={({ item }) => (
           <CartItem
             item={item}
