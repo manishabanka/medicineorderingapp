@@ -1,14 +1,17 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 import { categories } from "../data/categories";
 import { products } from "../data/products";
+import { useCartStore } from "../store/cartStore";
 import { styles } from "./index.styles";
 
 export default function HomeScreen() {
+  const addToCart = useCartStore((state) => state.addToCart);
+  const itemCount = useCartStore((state) => state.getItemCount());
   const router = useRouter();
   const [searchText, setSearchText] = useState("");
 
@@ -20,10 +23,22 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      <View style={styles.header}>
-        <Text style={styles.greeting}>Hello 👋</Text>
+      <View style={styles.headerRow}>
+        <View style={styles.header}>
+          <Text style={styles.greeting}>Hello 👋</Text>
 
-        <Text style={styles.title}>What are you looking for today?</Text>
+          <Text style={styles.title}>What are you looking for today?</Text>
+        </View>
+
+        <Pressable
+          style={styles.cartButton}
+          onPress={() => router.push("/cart")}
+          accessibilityRole="button"
+          accessibilityLabel="Open cart"
+        >
+          <Text style={styles.cartIcon}>🛒</Text>
+          {itemCount > 0 && <Text style={styles.cartBadge}>{itemCount}</Text>}
+        </Pressable>
       </View>
 
       <SearchBar
@@ -79,8 +94,13 @@ export default function HomeScreen() {
           <ProductCard
             key={product.id}
             product={product}
-            onPress={() => console.log(product.name)}
-            onAddToCart={() => console.log(`Added ${product.name}`)}
+            onPress={() =>
+              router.navigate({
+                pathname: "/product/[id]",
+                params: { id: product.id },
+              })
+            }
+            onAddToCart={() => addToCart(product)}
           />
         ))}
       </View>

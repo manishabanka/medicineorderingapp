@@ -59,6 +59,11 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
+  buttonContainer: {
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
+  },
+
   addButton: {
     height: dimensions.buttonHeight,
     borderRadius: dimensions.buttonRadius,

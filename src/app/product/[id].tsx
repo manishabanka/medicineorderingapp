@@ -2,12 +2,14 @@ import { useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native";
 import PrimaryButton from "../../components/PrimaryButton";
 import { products } from "../../data/products";
+import { useCartStore } from "../../store/cartStore";
 import { styles } from "./[id].styles";
 
 export default function ProductDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const product = products.find((item) => item.id === id);
+  const addToCart = useCartStore((state) => state.addToCart);
 
   if (!product) {
     return (
@@ -47,6 +49,7 @@ export default function ProductDetailsScreen() {
         <PrimaryButton
           title="Add to Cart"
           onPress={() => {
+            addToCart(product);
             alert(`${product.name} added to cart`);
           }}
         />

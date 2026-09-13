@@ -1,26 +1,34 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FlatList, Text, View } from "react-native";
 import EmptyState from "../components/EmptyState";
 import ProductCard from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
 import { products } from "../data/products";
+import { useCartStore } from "../store/cartStore";
 import { styles } from "./products.styles";
 
 export default function ProductsScreen() {
+  const addToCart = useCartStore((state) => state.addToCart);
   const router = useRouter();
   const { category, search } = useLocalSearchParams<{
     category?: string;
     search?: string;
   }>();
-  const [searchText, setSearchText] = useState(search ?? "");
+  const [searchText, setSearchText] = useState(
+    typeof search === "string" ? search : "",
+  );
 
-  console.log("Search:", searchText);
+  useEffect(() => {
+    setSearchText(typeof search === "string" ? search : "");
+  }, [search]);
+
+  const normalizedQuery = searchText.trim().toLowerCase();
 
   const filteredProducts = products.filter((product) => {
-    const matchesSearch = product.name
-      .toLowerCase()
-      .includes(searchText.trim().toLowerCase());
+    const matchesSearch =
+      normalizedQuery.length === 0 ||
+      product.name.toLowerCase().includes(normalizedQuery);
 
     const matchesCategory = !category || product.category === category;
 
@@ -31,7 +39,18 @@ export default function ProductsScreen() {
     <View style={styles.screen}>
       <Text style={styles.title}>All Products</Text>
 
-      <SearchBar value={searchText} onChangeText={setSearchText} />
+      <SearchBar
+        value={searchText}
+        onChangeText={setSearchText}
+        onSubmit={() => {
+          const trimmedQuery = searchText.trim();
+
+          router.setParams({
+            category: category ?? undefined,
+            search: trimmedQuery || undefined,
+          });
+        }}
+      />
 
       <Text>
         Showing {filteredProducts.length} of {products.length} products
@@ -55,7 +74,9 @@ export default function ProductsScreen() {
                   params: { id: item.id },
                 })
               }
-              onAddToCart={() => console.log(`Added ${item.name}`)}
+              onAddToCart={() => {
+                addToCart(item);
+              }}
             />
           )}
           contentContainerStyle={styles.list}

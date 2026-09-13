@@ -15,8 +15,16 @@ export const styles = StyleSheet.create({
     paddingBottom: spacing.xxxl,
   },
 
-  header: {
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: spacing.lg,
+    gap: spacing.md,
+  },
+
+  header: {
+    flex: 1,
   },
 
   greeting: {
@@ -30,6 +38,44 @@ export const styles = StyleSheet.create({
     fontWeight: "700",
     color: colors.textPrimary,
     lineHeight: 30,
+  },
+
+  cartButton: {
+    position: "relative",
+    width: 48,
+    height: 48,
+    borderRadius: 16,
+    backgroundColor: colors.white,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: colors.border,
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
+  },
+
+  cartIcon: {
+    fontSize: 22,
+  },
+
+  cartBadge: {
+    position: "absolute",
+    top: -4,
+    right: -4,
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: colors.primary,
+    color: colors.white,
+    fontSize: 10,
+    fontWeight: "700",
+    textAlign: "center",
+    lineHeight: 18,
+    overflow: "hidden",
+    paddingHorizontal: 4,
   },
 
   section: {
