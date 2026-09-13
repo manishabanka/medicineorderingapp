@@ -9,14 +9,12 @@ export interface CartItem {
 interface CartStore {
   items: CartItem[];
 
-  // Cart actions
   addToCart: (product: Product) => void;
   removeFromCart: (productId: string) => void;
   increaseQuantity: (productId: string) => void;
   decreaseQuantity: (productId: string) => void;
   clearCart: () => void;
 
-  // Cart calculations
   getSubtotal: () => number;
   getTotalMrp: () => number;
   getDiscount: () => number;
@@ -27,7 +25,6 @@ interface CartStore {
 export const useCartStore = create<CartStore>()((set, get) => ({
   items: [],
 
-  // Add product to cart
   addToCart: (product) =>
     set((state) => {
       const existingItem = state.items.find(
@@ -58,13 +55,11 @@ export const useCartStore = create<CartStore>()((set, get) => ({
       };
     }),
 
-  // Remove product completely
   removeFromCart: (productId) =>
     set((state) => ({
       items: state.items.filter((item) => item.product.id !== productId),
     })),
 
-  // Increase quantity
   increaseQuantity: (productId) =>
     set((state) => ({
       items: state.items.map((item) =>
@@ -77,7 +72,6 @@ export const useCartStore = create<CartStore>()((set, get) => ({
       ),
     })),
 
-  // Decrease quantity
   decreaseQuantity: (productId) =>
     set((state) => ({
       items: state.items
@@ -92,38 +86,29 @@ export const useCartStore = create<CartStore>()((set, get) => ({
         .filter((item) => item.quantity > 0),
     })),
 
-  // Clear entire cart
   clearCart: () => set({ items: [] }),
 
-  // Total selling price before discount
   getSubtotal: () =>
     get().items.reduce(
       (total, item) => total + item.product.price * item.quantity,
       0,
     ),
 
-  // Total MRP
   getTotalMrp: () =>
     get().items.reduce(
       (total, item) => total + item.product.mrp * item.quantity,
       0,
     ),
 
-  // Total discount
   getDiscount: () => {
     const { getTotalMrp, getSubtotal } = get();
 
     return getTotalMrp() - getSubtotal();
   },
 
-  // Final payable amount after applying the cart discount
-  getTotal: () => {
-    const { getSubtotal, getDiscount } = get();
+  // Selling price already includes the product-level discount.
+  getTotal: () => get().getSubtotal(),
 
-    return getSubtotal() - getDiscount();
-  },
-
-  // Total number of products
   getItemCount: () =>
     get().items.reduce((total, item) => total + item.quantity, 0),
 }));

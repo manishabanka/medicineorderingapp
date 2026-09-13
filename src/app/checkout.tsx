@@ -32,23 +32,29 @@ export default function CheckoutScreen() {
   const total = getTotal();
 
   const handlePlaceOrder = () => {
-    if (items.length === 0) {
+    const latestCart = useCartStore.getState();
+
+    const latestItems = latestCart.items;
+
+    if (latestItems.length === 0) {
       return;
     }
+
+    const latestTotal = latestCart.getTotal();
 
     const orderId = `ORD-${Date.now()}`;
 
     const createdOrderId = addOrder({
       id: orderId,
-      items,
-      total,
+      items: latestItems,
+      total: latestTotal,
       status: "Placed",
       paymentMethod,
       address: "123 Main Street, Civil Lines, Raipur, Chhattisgarh - 492001",
       createdAt: new Date().toISOString(),
     });
 
-    clearCart();
+    latestCart.clearCart();
 
     router.replace({
       pathname: "/order-confirmation",

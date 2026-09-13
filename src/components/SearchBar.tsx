@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
+
 import { styles } from "./SearchBar.styles";
 
 interface SearchBarProps {
@@ -18,16 +20,34 @@ export default function SearchBar({
   onSelectSuggestion,
   placeholder = "Search medicines and healthcare products",
 }: SearchBarProps) {
+  const [showSuggestions, setShowSuggestions] = useState(true);
+
+  const handleChangeText = (text: string) => {
+    setShowSuggestions(true);
+    onChangeText(text);
+  };
+
+  const handleSelectSuggestion = (suggestion: string) => {
+    onChangeText(suggestion);
+    setShowSuggestions(false);
+    onSelectSuggestion?.(suggestion);
+  };
+
+  const handleSubmit = () => {
+    setShowSuggestions(false);
+    onSubmit?.();
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
         style={styles.input}
         value={value}
-        onChangeText={onChangeText}
-        onSubmitEditing={() => onSubmit?.()}
+        onChangeText={handleChangeText}
+        onSubmitEditing={handleSubmit}
         onKeyPress={(event) => {
           if (event.nativeEvent.key === "Enter") {
-            onSubmit?.();
+            handleSubmit();
           }
         }}
         placeholder={placeholder}
@@ -37,13 +57,13 @@ export default function SearchBar({
         returnKeyType="search"
       />
 
-      {suggestions.length > 0 && onSelectSuggestion && (
+      {showSuggestions && suggestions.length > 0 && onSelectSuggestion && (
         <View style={styles.suggestionsContainer}>
           {suggestions.map((suggestion) => (
             <Pressable
               key={suggestion}
               style={styles.suggestion}
-              onPress={() => onSelectSuggestion(suggestion)}
+              onPress={() => handleSelectSuggestion(suggestion)}
             >
               <Text style={styles.suggestionText}>{suggestion}</Text>
             </Pressable>
